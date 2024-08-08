@@ -8,6 +8,6 @@ namespace CDS
 {
     internal interface IConectorBehavior
     {
-
+        List<Structure.Surtidor> GetSurtidores();
     }
 }

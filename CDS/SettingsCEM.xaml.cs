@@ -94,20 +94,6 @@ namespace CDS
             CheckBoxProtocol16.IsChecked = true;
             protocolo = "16";
         }
-        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            // Combinación de teclas Ctrl + Shift + E
-            if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
-            {
-                if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))
-                {
-                    if (e.Key == Key.E)
-                    {
-                        ComboBoxMode.Visibility = Visibility.Visible;
-                    }
-                }
-            }
-        }
         public Dictionary<string, string> GetConfiguration()
         {
             if (parametrosCEM["Ruta"] != TextBoxPryNuevo.Text)

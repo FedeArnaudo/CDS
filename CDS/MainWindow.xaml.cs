@@ -27,7 +27,7 @@ namespace CDS
         }
         private void StatusForm_Load(object sender, EventArgs e)
         {
-            if (!Configuracion.ExisteConfiguracion())
+            if (!Configuration.ExisteConfiguracion())
             {
                 InitialSettings initialSettings = new InitialSettings
                 {
@@ -52,7 +52,7 @@ namespace CDS
         }
         private void Init()
         {
-            Info infoConfig = Configuracion.LeerConfiguracion();
+            Info infoConfig = Configuration.LeerConfiguracion();
             if (infoConfig != null)
             {
 

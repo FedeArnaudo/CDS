@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace CDS
 {
-    internal class Configuracion
+    internal class Configuration
     {
-        public Configuracion()
+        public Configuration()
         {
         }
         private static readonly string configFile = Environment.CurrentDirectory + "/config.ini";
@@ -69,6 +69,7 @@ namespace CDS
                         default:
                             break;
                     }
+                    outputFile.WriteLine(infoConfig.InfoLog);
                 }
             }
             catch (Exception e)
@@ -87,21 +88,10 @@ namespace CDS
     #region INFO
     public class Info
     {
-        protected string configFile = "Config.ini";
         protected string tipoDeControlador = "";
         protected string rutaProyNuevo = "";
+        protected string infoLog = "";
         public Info() { }
-        public string ConfigFile
-        {
-            get => configFile;
-            set
-            {
-                if (configFile != value)
-                {
-                    configFile = value;
-                }
-            }
-        }
         public string TipoDeControlador
         {
             get => tipoDeControlador;
@@ -124,6 +114,17 @@ namespace CDS
                 }
             }
         }
+        public string InfoLog
+        {
+            get => infoLog;
+            set
+            {
+                if(infoLog != value)
+                {
+                    infoLog = value;
+                }
+            }
+        }
     }
     #endregion
     #region INFO_CEM
@@ -133,7 +134,6 @@ namespace CDS
         private string protocolo = "";
         public InfoCEM()
         {
-            ConfigFile = "ConfigCEM.ini";
         }
         public string IP
         {
@@ -164,7 +164,6 @@ namespace CDS
     {
         public InfoFusion()
         {
-            ConfigFile = "ConfigFusion.ini";
         }
     }
     #endregion

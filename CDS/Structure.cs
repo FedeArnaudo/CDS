@@ -6,12 +6,24 @@ using System.Threading.Tasks;
 
 namespace CDS
 {
-    class Structure
+    internal class Structure
     {
         #region ESTACION
         public class Station
         {
-
+            public Station()
+            {
+                Surtidores = new List<Surtidor>();
+                Tanques = new List<Tanque>();
+                Productos = new List<Producto>();
+            }
+            public int NumeroDeSurtidores { get; set; }
+            public int NumeroDeTanques { get; set; }
+            public int NumeroDeProductos { get; set; }
+            public int NumeroDeMangueras { get; set; }
+            public List<Surtidor> Surtidores { get; set; }
+            public List<Tanque> Tanques { get; set; }
+            public List<Producto> Productos { get; set; }
         }
         public class Surtidor
         {

@@ -67,12 +67,14 @@ namespace CDS
 
                 if (CkeckParametros(parametros))
                 {
+                    // ####### ELIMINA ##################################################
                     string info = $"Configuracion ingresada:\n";
                     foreach (KeyValuePair<string, string> parametro in parametros)
                     {
                         info += $"->    {parametro.Key}: {parametro.Value}\n";
                     }
                     _ = MessageBox.Show(info);
+                    // ##################################################################
 
                     switch (ComboBoxTipo.Text)
                     {
@@ -82,22 +84,30 @@ namespace CDS
                                 TipoDeControlador = ComboBoxTipo.Text,
                                 RutaProyNuevo = parametros["Ruta"],
                                 IP = parametros["IP"],
-                                Protocolo = parametros["Protocolo"]
+                                Protocolo = parametros["Protocolo"],
+                                InfoLog = ComboBoxMode.Text
                             };
                             break;
                         case "FUSION":
                             infoConfig = new InfoFusion()
                             {
                                 TipoDeControlador = ComboBoxTipo.Text,
-                                RutaProyNuevo = parametros["Ruta"]
+                                RutaProyNuevo = parametros["Ruta"],
+                                InfoLog = ComboBoxMode.Text
                             };
                             break;
                         default:
                             infoConfig = new Info();
                             break;
                     }
-                    if (Configuracion.GuardarConfiguracion(infoConfig))
+                    if (Configuration.GuardarConfiguracion(infoConfig))
                     {
+                        Log.Instance.SetLogLevel(Log.LogType.t_normal);
+                        if (ComboBoxMode.Text.Equals(Log.LogType.t_debug.ToString()))
+                        {
+                            Log.Instance.SetLogLevel(Log.LogType.t_debug);
+                        }
+
                         //_ = Log.Instance.WriteLog($"La configuración se guardó correctamente.", Log.LogType.t_info);
                         Console.WriteLine($"La configuración se guardó correctamente.");
                         _ = MessageBox.Show($"La configuración se guardó correctamente.");
@@ -121,6 +131,20 @@ namespace CDS
                 }
             }
             return true;
+        }
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            // Combinación de teclas Ctrl + Shift + E
+            if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
+            {
+                if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))
+                {
+                    if (e.Key == Key.E)
+                    {
+                        ComboBoxMode.Visibility = Visibility.Visible;
+                    }
+                }
+            }
         }
     }
 }

@@ -56,10 +56,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Configuracion.cs" />
+    <Compile Include="ConectorCEM.cs" />
+    <Compile Include="Configuration.cs" />
+    <Compile Include="Controlador.cs" />
+    <Compile Include="IConectorBehavior.cs" />
+    <Compile Include="Log.cs" />
     <Compile Include="SettingsFusion.xaml.cs">
       <DependentUpon>SettingsFusion.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Structure.cs" />
     <Page Include="SettingsCEM.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

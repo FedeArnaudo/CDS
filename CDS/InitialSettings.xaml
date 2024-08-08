@@ -8,7 +8,7 @@
         Title="Configuracion de la Estacion"
         Height="319" Width="366"
         WindowStartupLocation="Manual" Background="Transparent"
-        ResizeMode="NoResize">
+        ResizeMode="NoResize" PreviewKeyDown="Window_PreviewKeyDown">
     <Window.Resources>
         <!--#region ButtonStle-->
         <Style x:Key="FocusVisual">
@@ -87,7 +87,7 @@
             <!--#endregion-->
             <!--#region TEXTBLOCK-->
             <TextBlock Grid.Row="1" Grid.ColumnSpan="4" Text="Configurar estacion"
-                       VerticalAlignment="Center" HorizontalAlignment="Center"
+                       VerticalAlignment="Top" HorizontalAlignment="Center"
                        Foreground="Black" FontSize="30"></TextBlock>
             <TextBlock Grid.Row="2" Grid.Column="1" Text="Tipo controlador"
                        VerticalAlignment="Center" HorizontalAlignment="Left" Margin="50, 0, 0, 0"
@@ -99,6 +99,13 @@
                       SelectionChanged="ComboBoxTipo_SelectionChanged">
                 <ComboBoxItem>CEM-44</ComboBoxItem>
                 <ComboBoxItem>FUSION</ComboBoxItem>
+                <!-- Agrega más elementos según sea necesario -->
+            </ComboBox>
+            <ComboBox Grid.Row="4" Grid.Column="1" x:Name="ComboBoxMode"
+                  Width="75" Height="25" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10, 0, 0, 0"
+                  SelectedIndex="0" Visibility="Hidden">
+                <ComboBoxItem>t_normal</ComboBoxItem>
+                <ComboBoxItem>t_debug</ComboBoxItem>
                 <!-- Agrega más elementos según sea necesario -->
             </ComboBox>
             <!--#endregion-->
