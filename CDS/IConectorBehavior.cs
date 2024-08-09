@@ -9,5 +9,7 @@ namespace CDS
     internal interface IConectorBehavior
     {
         List<Structure.Surtidor> GetSurtidores();
+        List<Structure.Tanque> GetTanques();
+        List<Structure.Producto> GetProductos();
     }
 }

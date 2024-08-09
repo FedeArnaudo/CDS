@@ -9,13 +9,12 @@ namespace CDS
 {
     internal class Configuration
     {
-        public Configuration()
-        {
-        }
+
         private static readonly string configFile = Environment.CurrentDirectory + "/config.ini";
+        public Configuration() { }
         public static Info LeerConfiguracion()
         {
-            Info infoConfig;
+            Info infoConfig = null;
             try
             {
                 StreamReader reader;
@@ -39,14 +38,14 @@ namespace CDS
                         break;
                 }
                 reader.Close();
+                return infoConfig;
             }
             catch (Exception e)
             {
                 //_ = Log.Instance.WriteLog("Error al leer archivo de configuración. Formato incorrecto. Excepción: " + e.Message, Log.LogType.t_error);
                 Console.WriteLine($"Error al leer archivo de configuración. Formato incorrecto. Excepción: {e.Message}");
-                return null;
+                return infoConfig;
             }
-            return infoConfig;
         }
         public static bool GuardarConfiguracion(Info infoConfig)
         {

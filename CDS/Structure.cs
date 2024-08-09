@@ -20,7 +20,6 @@ namespace CDS
             public int NumeroDeSurtidores { get; set; }
             public int NumeroDeTanques { get; set; }
             public int NumeroDeProductos { get; set; }
-            public int NumeroDeMangueras { get; set; }
             public List<Surtidor> Surtidores { get; set; }
             public List<Tanque> Tanques { get; set; }
             public List<Producto> Productos { get; set; }

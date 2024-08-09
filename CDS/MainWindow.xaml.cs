@@ -55,7 +55,7 @@ namespace CDS
             Info infoConfig = Configuration.LeerConfiguracion();
             if (infoConfig != null)
             {
-
+                _ = MessageBox.Show("Programa iniciado correctamente");
             }
             else
             {
