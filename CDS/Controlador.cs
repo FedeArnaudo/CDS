@@ -78,11 +78,11 @@ namespace CDS
         /// </summary>
         /// <param name="config"> La configuración extraída del archivo de configuración </param>
         /// <returns> true si se pudo inicializar correctamente </returns>
-        public static bool Init(Info infoConfig)
+        public static bool Init(string controlador)
         {
             if (instancia == null)
             {
-                switch (infoConfig.TipoDeControlador)
+                switch (controlador)
                 {
                     case "CEM-44":
                         instancia = new ControladorCEM();
@@ -92,9 +92,10 @@ namespace CDS
                     default:
                         break;
                 }
+
                 if (procesoPrincipal == null || !procesoPrincipal.IsAlive)
                 {
-                    _ = Task.Run(() => Run(cancellationTokenSource.Token));
+                    _ = Task.Run(() => RunCEM(cancellationTokenSource.Token));
                 }
             }
             else
@@ -104,7 +105,7 @@ namespace CDS
             return true;
         }
 
-        private static void Run(CancellationToken token)
+        private static void RunCEM(CancellationToken token)
         {
             while (!token.IsCancellationRequested)
             {

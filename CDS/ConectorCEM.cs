@@ -22,22 +22,22 @@ namespace CDS
         private readonly CultureInfo culture = CultureInfo.InvariantCulture;
         public ConectorCEM()
         {
-            station = ConfiguracionDeLaEstacion();
+            ConfiguracionDeLaEstacion();
         }
 
         public List<Surtidor> GetSurtidores()
         {
-            return station.Surtidores;
+            return Station.InstanciaStation.Surtidores;
         }
 
         public List<Tanque> GetTanques()
         {
-            return station.Tanques;
+            return Station.InstanciaStation.Tanques;
         }
 
         public List<Producto> GetProductos()
         {
-            return station.Productos;
+            return Station.InstanciaStation.Productos;
         }
 
         /*
@@ -51,7 +51,7 @@ namespace CDS
             int surtidores = 1;
             int tanques = 3;
             int productos = 4;
-            Station tempStation = new Station();
+            Station tempStation = Station.InstanciaStation;
 
             byte[] respuesta = Log.Instance.GetLogLevel().Equals(Log.LogType.t_debug) ? LeerArchivo("ConfigEstacion") : EnviarComando(mensaje);
             try

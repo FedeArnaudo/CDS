@@ -17,6 +17,7 @@ namespace CDS
                 Tanques = new List<Tanque>();
                 Productos = new List<Producto>();
             }
+            public static Station InstanciaStation { get; } = new Station();
             public int NumeroDeSurtidores { get; set; }
             public int NumeroDeTanques { get; set; }
             public int NumeroDeProductos { get; set; }
