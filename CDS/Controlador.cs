@@ -16,7 +16,7 @@ namespace CDS
         private static readonly CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         protected IConectorBehavior conector;
         public static bool endWork = false;
-        public static bool pedirCierreAnterior = false;
+        
         public Controlador() { }
         public IConectorBehavior Conector
         {
@@ -34,7 +34,7 @@ namespace CDS
         /// para obtener los productos, los tanques, las mangueras y surtidores, etc.
         /// Y se guarda la informacion en la tabla de la base de datos correspondiente.
         /// </summary>
-        public abstract void GrabarConfigEstacion();
+        public abstract void GrabarSurtidores();
 
         /// <summary>
         /// Este método estático es el encargado de procesar la informacion de los surtidores
@@ -64,7 +64,7 @@ namespace CDS
         /// Este método estático es el encargado de procesar la informacion del corte del ultimo turno
         /// y guardarla en la base de datos correspondiente.
         /// </summary>
-        public abstract void GrabarCierreDeTurno();
+        public abstract void GrabarCierreActual();  
 
         /// <summary>
         /// Este método estático es el encargado de procesar la informacion del cierre del turno anterior
@@ -90,12 +90,12 @@ namespace CDS
                     case "FUSION":
                         break;
                     default:
-                        break;
+                        return false;
                 }
 
                 if (procesoPrincipal == null || !procesoPrincipal.IsAlive)
                 {
-                    _ = Task.Run(() => RunCEM(cancellationTokenSource.Token));
+                    _ = Task.Run(() => Run(cancellationTokenSource.Token));
                 }
             }
             else
@@ -105,13 +105,43 @@ namespace CDS
             return true;
         }
 
-        private static void RunCEM(CancellationToken token)
+        private static void Run(CancellationToken token)
         {
             while (!token.IsCancellationRequested)
             {
                 try
                 {
+                    instancia.GrabarSurtidores();
+                    instancia.GrabarProductos();
+                    instancia.GrabarTanques();
+                    while (true)
+                    {
+                        instancia.GrabarDespachos();
 
+                        // Espera para procesar nuevamente
+                        Thread.Sleep(500);
+
+                        if (token.IsCancellationRequested)
+                        {
+                            break;
+                        }
+                        else if (ControladorCEM.PedirCierreAnterior)
+                        {
+                            instancia.GrabarCierreAnterior();
+                            ControladorCEM.PedirCierreAnterior = false;
+                        }
+                        else if (ControladorCEM.PedirTurnoActual)
+                        {
+                            instancia.GrabarTurnoEnCurso();
+                            ControladorCEM.PedirTurnoActual = false;
+                        }
+
+                        // Espera para procesar nuevamente
+                        Thread.Sleep(500);
+                    }
+                    instancia.GrabarCierreActual();
+                    // Espera para procesar nuevamente
+                    Thread.Sleep(1000);
                 }
                 catch (Exception e)
                 {
