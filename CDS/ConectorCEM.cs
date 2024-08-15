@@ -7,7 +7,6 @@ using System.IO.Pipes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static CDS.Structure;
 
 namespace CDS
 {
@@ -17,12 +16,12 @@ namespace CDS
         private readonly string nombreDelPipe = "CEM44POSPIPE";
         private readonly string ipControlador = ((InfoCEM)Configuration.LeerConfiguracion()).IP;
         private readonly string protocolo = ((InfoCEM)Configuration.LeerConfiguracion()).Protocolo;
-        private readonly Station station;
         // Especifica la cultura que utiliza el punto como separador decimal
         private readonly CultureInfo culture = CultureInfo.InvariantCulture;
         public ConectorCEM()
         {
             ConfiguracionDeLaEstacion();
+            StockDeTanques();
         }
 
         public List<Surtidor> GetSurtidores()
@@ -44,7 +43,7 @@ namespace CDS
          * Este método brinda toda la informacion de la configuracion del CEM-44
          * con respecto a la estructura de la estación.
          */
-        private Station ConfiguracionDeLaEstacion()
+        private void ConfiguracionDeLaEstacion()
         {
             byte[] mensaje = protocolo.Equals("16") ? (new byte[] { 0x65 }) : (new byte[] { 0xB5 });
             int confirmacion = 0;
@@ -151,7 +150,46 @@ namespace CDS
             {
                 throw new Exception($"Error al obtener información de los Surtidores. \nExcepción: {e.Message}");
             }
-            return tempStation;
+        }
+
+        /*
+         * Este método toma la estructura de tanques y actualiza sus valores.
+         */
+        private void StockDeTanques()
+        {
+            byte[] mensaje = protocolo.Equals("16") ? (new byte[] { 0x68 }) : (new byte[] { 0xB8 });
+            int confirmacion = 0;
+            byte[] respuesta = Log.Instance.GetLogLevel().Equals(Log.LogType.t_debug) ? LeerArchivo("infoTanques") : EnviarComando(mensaje);
+            List<Tanque> tempTanques = Station.InstanciaStation.Tanques;
+
+            try
+            {
+                if (respuesta == null || respuesta[confirmacion] != 0x0)
+                {
+                    throw new Exception("No se recibió mensaje de confirmación al solicitar info del surtidor");
+                }
+
+                int posicion = confirmacion + 1;
+
+                for (int i = 0; i < tempTanques.Count; i++)
+                {
+                    foreach (Tanque tanque in tempTanques)
+                    {
+                        if (tanque.NumeroDeTanque == (i + 1))
+                        {
+                            tanque.NumeroDeTanque = i + 1;
+                            tanque.VolumenProductoT = ConvertDouble(LeerCampoVariable(respuesta, ref posicion));
+                            tanque.VolumenAguaT = ConvertDouble(LeerCampoVariable(respuesta, ref posicion));
+                            tanque.VolumenVacioT = ConvertDouble(LeerCampoVariable(respuesta, ref posicion));
+                            break;
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error al obtener informacion del tanque. \nExcepción: " + e.Message);
+            }
         }
 
         /*
@@ -194,6 +232,7 @@ namespace CDS
                 throw new Exception($"Error al enviar el comando. \nExcepción: {e.Message}");
             }
         }
+
         /*
          * Metodo para leer los campos variables, por ejemplo precios o cantidades.
          * El metodo para frenar la iteracion, es un valor conocido, proporcionado por el fabricante
@@ -213,6 +252,7 @@ namespace CDS
             pos = i;
             return ret;
         }
+
         /*
          * Metodo para saltearse los valores que no son utilizados en la respuesta del CEM.
          * Al finalizar el proceso del metodo, el valor de la posicion queda seteada para
@@ -226,10 +266,12 @@ namespace CDS
             }
             pos++;
         }
+
         private double ConvertDouble(string value)
         {
             return double.TryParse(value, NumberStyles.Any, culture, out double result) ? result : result;
         }
+
         /*
          * Se utiliza para testear las respuestas reales del Cem-44
          * se lee un .txt que contiene las respuestas y las guarda en un byte,

@@ -42,8 +42,8 @@ namespace CDS
             }
             catch (Exception e)
             {
-                //_ = Log.Instance.WriteLog("Error al leer archivo de configuración. Formato incorrecto. Excepción: " + e.Message, Log.LogType.t_error);
-                Console.WriteLine($"Error al leer archivo de configuración. Formato incorrecto. Excepción: {e.Message}");
+                Log.Instance.WriteLog("Error al leer archivo de configuración. Formato incorrecto. Excepción: " + e.Message, Log.LogType.t_error);
+                //Console.WriteLine($"Error al leer archivo de configuración. Formato incorrecto. Excepción: {e.Message}");
                 return infoConfig;
             }
         }
@@ -56,11 +56,11 @@ namespace CDS
                 {
                     outputFile.WriteLine(infoConfig.TipoDeControlador.Trim());
                     outputFile.WriteLine(infoConfig.RutaProyNuevo.Trim());
+                    outputFile.WriteLine(infoConfig.IP.Trim());
                     switch (infoConfig.TipoDeControlador)
                     {
                         case "CEM-44":
                             InfoCEM infoCEM = (InfoCEM)infoConfig;
-                            outputFile.WriteLine(infoCEM.IP.Trim());
                             outputFile.WriteLine(infoCEM.Protocolo.Trim());
                             break;
                         case "FUSION":
@@ -73,8 +73,8 @@ namespace CDS
             }
             catch (Exception e)
             {
-                //_ = Log.Instance.WriteLog("Error al guardar la configuración. Excepción: " + e.Message, Log.LogType.t_error);
-                Console.WriteLine($"Error al guardar la configuración. Excepción: {e.Message}");
+                Log.Instance.WriteLog($"Error al guardar la configuración. Excepción: {e.Message}", Log.LogType.t_error);
+                //Console.WriteLine($"Error al guardar la configuración. Excepción: {e.Message}");
                 return false;
             }
             return true;
@@ -89,6 +89,7 @@ namespace CDS
     {
         protected string tipoDeControlador = "";
         protected string rutaProyNuevo = "";
+        private string ip = "";
         protected string infoLog = "";
         public Info() { }
         public string TipoDeControlador
@@ -113,6 +114,17 @@ namespace CDS
                 }
             }
         }
+        public string IP
+        {
+            get => ip;
+            set
+            {
+                if (ip != value)
+                {
+                    ip = value;
+                }
+            }
+        }
         public string InfoLog
         {
             get => infoLog;
@@ -129,22 +141,8 @@ namespace CDS
     #region INFO_CEM
     public class InfoCEM : Info
     {
-        private string ip = "";
         private string protocolo = "";
-        public InfoCEM()
-        {
-        }
-        public string IP
-        {
-            get => ip;
-            set
-            {
-                if (ip != value)
-                {
-                    ip = value;
-                }
-            }
-        }
+        public InfoCEM() { }
         public string Protocolo
         {
             get => protocolo;
@@ -161,9 +159,7 @@ namespace CDS
     #region INFO_FUSION
     public class InfoFusion : Info
     {
-        public InfoFusion()
-        {
-        }
+        public InfoFusion() { }
     }
     #endregion
 }
