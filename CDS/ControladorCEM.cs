@@ -11,9 +11,13 @@ namespace CDS
     {
         public static bool PedirCierreAnterior { get; set; }
         public static bool PedirTurnoActual { get; set; }
+        public static bool PedirStockDeTanques { get; set; }
         public ControladorCEM()
         {
             Conector = new ConectorCEM();
+            PedirCierreAnterior = false;
+            PedirTurnoActual = false;
+            PedirStockDeTanques = false;
         }
 
         public override void GrabarSurtidores()
@@ -55,22 +59,6 @@ namespace CDS
             }
         }
 
-        public override void GrabarProductos()
-        {
-            List<Producto> productos = Conector.GetProductos();
-
-            throw new NotImplementedException();
-        }
-        public override void GrabarCierreAnterior()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void GrabarCierreActual()
-        {
-            throw new NotImplementedException();
-        }
-
         public override void GrabarDespachos()
         {
             throw new NotImplementedException();
@@ -81,7 +69,22 @@ namespace CDS
             throw new NotImplementedException();
         }
 
+        public override void GrabarProductos()
+        {
+            throw new NotImplementedException();
+        }
+
         public override void GrabarTurnoEnCurso()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void GrabarCierreActual()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void GrabarCierreAnterior()
         {
             throw new NotImplementedException();
         }

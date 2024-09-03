@@ -49,6 +49,7 @@ namespace CDS
             Producto = null;
         }
         public int NumeroDeTanque { get; set; }
+        public double VolumentTotal => VolumenProductoT + VolumenAguaT + VolumenVacioT;
         public int ProductoTanque { get; set; }
         public double VolumenProductoT { get; set; }
         public double VolumenAguaT { get; set; }
@@ -78,12 +79,24 @@ namespace CDS
         public string Descripcion { get; set; }
     }
     #endregion
+    #region CEM STRUCTURE
     #region DESPACHOS
     public class Despacho
     {
         public Despacho() { }
-
-        public enum ESTADO_SURTIDOR
+        public int NumeroUltimaVenta { get; set; }
+        public int ID { get; set; }
+        public int Surtidor { get; set; }
+        public string Manguera { get; set; }
+        public int Producto { get; set; }
+        public double Monto { get; set; }
+        public double Volumen { get; set; }
+        public double PPU { get; set; }
+        public bool Facturado { get; set; }
+        public bool YPFRuta { get; set; }
+        public string Descripcion { get; set; }
+        public string Fecha { get; set; }
+        /*public enum ESTADO_SURTIDOR
         {
             DISPONIBLE,
             EN_SOLICITUD,
@@ -111,21 +124,28 @@ namespace CDS
         public double PpuVentaAnterior { get; set; }
         public bool VentaAnteriorFacturada { get; set; }
         public int IdVentaAnterior { get; set; }
+        */
     }
+    /*
     public class InfoDespacho
     {
-        public InfoDespacho() { }
-        public int ID { get; set; }
-        public int Surtidor { get; set; }
-        public string Manguera { get; set; }
-        public int Producto { get; set; }
-        public double Monto { get; set; }
-        public double Volumen { get; set; }
-        public double PPU { get; set; }
-        public bool Facturado { get; set; }
-        public bool YPFRuta { get; set; }
-        public string Desc { get; set; }
-        public string Fecha { get; set; }
-    }
+    public InfoDespacho() { }
+    public int NumeroUltimaVenta { get; set; }
+    public int ID { get; set; }
+    public int Surtidor { get; set; }
+    public string Manguera { get; set; }
+    public int Producto { get; set; }
+    public double Monto { get; set; }
+    public double Volumen { get; set; }
+    public double PPU { get; set; }
+    public bool Facturado { get; set; }
+    public bool YPFRuta { get; set; }
+    public string Desc { get; set; }
+    public string Fecha { get; set; }
+}
+    */
+    #endregion
+    #endregion
+    #region FUSION STRUCTURE
     #endregion
 }

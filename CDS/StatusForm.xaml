@@ -1,0 +1,104 @@
+﻿<Window x:Class="CDS.StatusForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CDS"
+        xmlns:views="clr-namespace:CDS.Views"
+        WindowStyle="None"
+        Icon="Images/LogoSurtidor.ico"
+        Title="Controlador de Surtidores" Height="350" Width="370" ResizeMode="CanMinimize"
+        MouseDown="Window_MouseDown">
+    <Border Background="#D6E2E8">
+        <Grid x:Name="GridStatus">
+            <!--#region COLS and ROWS-->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="15"></ColumnDefinition>
+                <ColumnDefinition Width="170"></ColumnDefinition>
+                <ColumnDefinition Width="170"></ColumnDefinition>
+                <ColumnDefinition Width="15"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="10"></RowDefinition>
+            </Grid.RowDefinitions>
+            <!--#endregion-->
+            <!--#region BUTTON-->
+            <Button Grid.Row="1" Grid.Column="1" Width="160" Height="35" Background="#007ED6" BorderBrush="#007ED6"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Margin="0, 0, 0, 0" Name="BtnCambiarConfig"
+                    Style="{DynamicResource ButtonStyle}" Click="BtnCambiarConfig_Click">
+                <TextBlock Text="Cambiar Configuracion" Foreground="White" FontSize="15"></TextBlock>
+            </Button>
+
+            <Button Grid.Row="2" Grid.Column="1" Width="160" Height="35" Background="#007ED6" BorderBrush="#007ED6"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Margin="0, 0, 0, 0" Name="BtnVerConfigEstacion"
+                    Style="{DynamicResource ButtonStyle}" Click="BtnVerConfigEstacion_Click">
+                <TextBlock Text="Ver Surtidores" Foreground="White" FontSize="15"></TextBlock>
+            </Button>
+
+            <Button Grid.Row="3" Grid.Column="1" Width="160" Height="35" Background="#007ED6" BorderBrush="#007ED6"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Margin="0, 0, 0, 0" Name="BtnVerDespachos"
+                    Style="{DynamicResource ButtonStyle}" Click="BtnVerDespachos_Click">
+                <TextBlock Text="Ver Despachos" Foreground="White" FontSize="15"></TextBlock>
+            </Button>
+            <Button Grid.Row="4" Grid.Column="1" Width="160" Height="35" Background="#007ED6" BorderBrush="#007ED6"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Margin="0, 0, 0, 0" Name="BtnVerTanques"
+                    Style="{DynamicResource ButtonStyle}" Click="BtnVerTanques_Click">
+                <TextBlock Text="Ver Tanques" Foreground="White" FontSize="15"></TextBlock>
+            </Button>
+            <Button Grid.Row="5" Grid.Column="1" Width="160" Height="35" Background="#007ED6" BorderBrush="#007ED6"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Margin="0, 0, 0, 0" Name="BtnVerProductos"
+                    Style="{DynamicResource ButtonStyle}" Click="BtnVerProductos_Click">
+                <TextBlock Text="Ver Productos" Foreground="White" FontSize="15"></TextBlock>
+            </Button>
+            <Button Grid.Row="5" Grid.Column="2" Width="105" Height="35" Background="#988E9F"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Margin="0,0,0,0" x:Name="BtnCierre_Anterior"
+                    Style="{DynamicResource ButtonStyle}" Click="BtnCierre_Anterior_Click">
+                <TextBlock Text="Cierre Anterior" Foreground="White" FontSize="15"/>
+            </Button>
+            <!--#endregion-->
+            <!--#region TOP MARGIN-->
+            <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Background="#FF3C7FB1">
+                <!--#region BUTTON-->
+                <Button Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"  Width="25" Height="25" Background="#1B1448" BorderBrush="#007ED6"
+                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                    Margin="0, 0, 35, 0" Name="BtnMinimizar"
+                    Style="{DynamicResource ButtonStyle}" Click="BtnMinimizar_Click">
+                    <TextBlock Text="-" Foreground="White" FontSize="15"></TextBlock>
+                </Button>
+                <Button Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"  Width="25" Height="25" Background="#1B1448" BorderBrush="#007ED6"
+                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                    Margin="0, 0, 5, 0" Name="BtnCerrar"
+                    Style="{DynamicResource ButtonStyle}" Click="BtnCerrar_Click">
+                    <TextBlock Text="X" Foreground="White" FontSize="15"></TextBlock>
+                </Button>
+                <!--#endregion-->
+                <!--#region IMAGE-->
+                <Image Source="pack://application:,,,/Images/LogoSurtidor.ico"
+                       Width="30" Height="30"
+                       HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"></Image>
+                <!--#endregion-->
+            </Grid>
+            <!--#endregion-->
+            <!--#region LABEL-->
+            <Label Grid.Row="6" Grid.Column="1" x:Name="LabelState" Background="AliceBlue"
+                   HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="170"
+                   Content="Iniciando..." FontFamily="Montcerrat" FontSize="16"
+                   HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                   Grid.ColumnSpan="2" />
+            <!--#endregion-->
+        </Grid>
+    </Border>
+</Window>

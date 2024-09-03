@@ -19,15 +19,15 @@ namespace CDS
             {
                 StreamReader reader;
                 reader = new StreamReader(configFile);
-                switch (reader.ReadLine().Trim())
+                switch (reader.ReadLine().Trim())                                      //1ro    Controlador
                 {
                     case "CEM-44":
                         infoConfig = new InfoCEM()
                         {
-                            TipoDeControlador = reader.ReadLine().Trim(),
-                            RutaProyNuevo = reader.ReadLine().Trim(),
-                            IP = reader.ReadLine().Trim(),
-                            Protocolo = reader.ReadLine().Trim()
+                            RutaProyNuevo = reader.ReadLine().Trim(),                  //2do    Ruta
+                            IP = reader.ReadLine().Trim(),                             //3ro    IP
+                            Protocolo = reader.ReadLine().Trim(),                      //4to    Protocolo
+                            Modo = reader.ReadLine().Trim()                            //5to    Modo
                         };
                         break;
                     case "FUSION":
@@ -54,21 +54,21 @@ namespace CDS
                 //Crea el archivo config.ini
                 using (StreamWriter outputFile = new StreamWriter(configFile, false))
                 {
-                    outputFile.WriteLine(infoConfig.TipoDeControlador.Trim());
-                    outputFile.WriteLine(infoConfig.RutaProyNuevo.Trim());
-                    outputFile.WriteLine(infoConfig.IP.Trim());
+                    outputFile.WriteLine(infoConfig.TipoDeControlador.Trim());              //1ro   Controlador
+                    outputFile.WriteLine(infoConfig.RutaProyNuevo.Trim());                  //2do   Ruta
+                    outputFile.WriteLine(infoConfig.IP.Trim());                             //3ro   IP
                     switch (infoConfig.TipoDeControlador)
                     {
                         case "CEM-44":
                             InfoCEM infoCEM = (InfoCEM)infoConfig;
-                            outputFile.WriteLine(infoCEM.Protocolo.Trim());
+                            outputFile.WriteLine(infoCEM.Protocolo.Trim());                 //4to   Protocolo
                             break;
                         case "FUSION":
                             break;
                         default:
                             break;
                     }
-                    outputFile.WriteLine(infoConfig.InfoLog);
+                    outputFile.WriteLine(infoConfig.Modo);                                  //5to   Modo
                 }
             }
             catch (Exception e)
@@ -90,8 +90,13 @@ namespace CDS
         protected string tipoDeControlador = "";
         protected string rutaProyNuevo = "";
         private string ip = "";
-        protected string infoLog = "";
+        protected MODO modo = MODO.NORMAL;
         public Info() { }
+        public enum MODO
+        {
+            NORMAL,
+            DEBUG
+        }
         public string TipoDeControlador
         {
             get => tipoDeControlador;
@@ -125,14 +130,15 @@ namespace CDS
                 }
             }
         }
-        public string InfoLog
+        public string Modo
         {
-            get => infoLog;
+            get => modo.ToString();
             set
             {
-                if(infoLog != value)
+                modo = MODO.NORMAL;
+                if (value.Contains(MODO.DEBUG.ToString()))
                 {
-                    infoLog = value;
+                    modo = MODO.DEBUG;
                 }
             }
         }
@@ -142,7 +148,10 @@ namespace CDS
     public class InfoCEM : Info
     {
         private string protocolo = "";
-        public InfoCEM() { }
+        public InfoCEM()
+        {
+            TipoDeControlador = "CEM-44";
+        }
         public string Protocolo
         {
             get => protocolo;
@@ -159,7 +168,10 @@ namespace CDS
     #region INFO_FUSION
     public class InfoFusion : Info
     {
-        public InfoFusion() { }
+        public InfoFusion()
+        {
+            TipoDeControlador = "FUSION";
+        }
     }
     #endregion
 }

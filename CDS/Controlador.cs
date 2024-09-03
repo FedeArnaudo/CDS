@@ -14,11 +14,10 @@ namespace CDS
         // Hilo para manejar el proceso principal de consulta al controlador en paralelo al resto de la ejecución
         private static readonly Thread procesoPrincipal = null;
         private static readonly CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-        protected IConectorBehavior conector;
+        protected IConector conector;
         public static bool endWork = false;
-        
         public Controlador() { }
-        public IConectorBehavior Conector
+        public IConector Conector
         {
             get => conector;
             set
@@ -64,7 +63,7 @@ namespace CDS
         /// Este método estático es el encargado de procesar la informacion del corte del ultimo turno
         /// y guardarla en la base de datos correspondiente.
         /// </summary>
-        public abstract void GrabarCierreActual();  
+        public abstract void GrabarCierreActual();
 
         /// <summary>
         /// Este método estático es el encargado de procesar la informacion del cierre del turno anterior
@@ -82,6 +81,7 @@ namespace CDS
         {
             if (instancia == null)
             {
+                ConectorSQLite.CrearBBDD();
                 switch (controlador)
                 {
                     case "CEM-44":
@@ -134,6 +134,11 @@ namespace CDS
                         {
                             instancia.GrabarTurnoEnCurso();
                             ControladorCEM.PedirTurnoActual = false;
+                        }
+                        else if (ControladorCEM.PedirStockDeTanques)
+                        {
+                            instancia.GrabarTanques();
+                            ControladorCEM.PedirStockDeTanques = false;
                         }
 
                         // Espera para procesar nuevamente
