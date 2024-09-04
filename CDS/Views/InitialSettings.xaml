@@ -7,7 +7,7 @@
         xmlns:views="clr-namespace:CDS.Views"
         mc:Ignorable="d"
         Title="Configuracion de la Estacion"
-        Height="349" Width="376"
+        Height="349" Width="370"
         WindowStartupLocation="Manual" Background="Transparent"
         ResizeMode="NoResize" PreviewKeyDown="Window_PreviewKeyDown">
     <Border Background="#D6E2E8">
@@ -62,16 +62,17 @@
             </ComboBox>
             <!--#endregion-->
             <!--#region STACK PANEL-->
-            <Border Grid.Row="4" Grid.Column="1" BorderBrush="AliceBlue" BorderThickness="4">
-                <StackPanel Height="140" Width="320" >
-                    <Frame x:Name="FrameController" NavigationUIVisibility="Hidden" Margin="1,0"/>
-                </StackPanel>
+            <Border Grid.Row="4" Grid.Column="1" BorderBrush="AliceBlue" BorderThickness="5"
+                    Height="149" Width="329"
+                    HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Frame x:Name="FrameController" NavigationUIVisibility="Hidden"
+                       Height="138" Width="317"/>
             </Border>
             <!--#endregion-->
             <!--#region BUTTON-->
             <Button Grid.Row="5" Grid.Column="1" x:Name="BtnConfig"
                     HorizontalAlignment="Center" VerticalAlignment="Center"
-                    Width="100" Height="24" Background="#007ED6" BorderBrush="#007ED6"
+                    Width="100" Height="25" Background="#007ED6" BorderBrush="#007ED6"
                     Style="{DynamicResource ButtonStyle}" Click="BtnConfig_Click" Margin="107,3,119,3">
                 <TextBlock Text="Iniciar" Foreground="White" FontSize="15"></TextBlock>
             </Button>

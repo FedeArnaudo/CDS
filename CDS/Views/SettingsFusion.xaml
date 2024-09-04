@@ -5,20 +5,19 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CDS"
       mc:Ignorable="d" 
-      d:DesignHeight="140" d:DesignWidth="320"
-      Title="SettingsFusion">
+      d:DesignHeight="138" d:DesignWidth="317" Title="SettingsFusion">
     <Grid Name="GridCEMSettings" Background="#C5DFFF">
         <!--#region COLS and ROWS-->
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="105"></ColumnDefinition>
-            <ColumnDefinition Width="215"></ColumnDefinition>
+            <ColumnDefinition Width="110"></ColumnDefinition>
+            <ColumnDefinition Width="207"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="24"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="24"></RowDefinition>
         </Grid.RowDefinitions>
         <!--#endregion-->
         <!--#region TextBlock-->

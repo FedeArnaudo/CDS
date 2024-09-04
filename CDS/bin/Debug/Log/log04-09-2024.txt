@@ -1,0 +1,5 @@
+10:49:13  ERROR:   Error al leer archivo de configuración. Formato incorrecto. Excepción: No se pudo encontrar el archivo 'C:\Users\Fde\Documents\C#\CDS\CDS\bin\Debug\config.ini'.
+10:57:53  ERROR:   Error al leer archivo de configuración. Formato incorrecto. Excepción: No se pudo encontrar el archivo 'C:\Users\Fde\Documents\C#\CDS\CDS\bin\Debug\config.ini'.
+12:31:06  ERROR:   Error al leer archivo de configuración. Formato incorrecto. Excepción: No se pudo encontrar el archivo 'C:\Users\Fde\Documents\C#\CDS\CDS\bin\Debug\config.ini'.
+12:32:47  ERROR:   Error al leer archivo de configuración. Formato incorrecto. Excepción: No se pudo encontrar el archivo 'C:\Users\Fde\Documents\C#\CDS\CDS\bin\Debug\config.ini'.
+12:34:04  ERROR:   Error al leer archivo de configuración. Formato incorrecto. Excepción: No se pudo encontrar el archivo 'C:\Users\Fde\Documents\C#\CDS\CDS\bin\Debug\config.ini'.

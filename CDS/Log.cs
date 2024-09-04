@@ -15,6 +15,7 @@ namespace CDS
             t_debug,
             t_error
         }
+
         /*  Esta variable almacena el tipo de log que esta seteando como maximo.
             Por ejemplo, si se setea como t_warning, solo los mensajes del tipo t_warning y t_error
             se van a mostar. Si se pone en t_debug, todos los mensajes se muestran.
