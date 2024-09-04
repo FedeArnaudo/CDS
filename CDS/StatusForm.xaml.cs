@@ -54,7 +54,7 @@ namespace CDS
         }
         private void Init()
         {
-            if (Configuration.LeerConfiguracion() != null && Controlador.Init(Configuration.LeerConfiguracion().TipoDeControlador))
+            if (Configuration.LeerConfiguracion() != null && Controlador.Init(Configuration.LeerConfiguracion()))
             {
                 _ = MessageBox.Show("Programa iniciado correctamente");
             }
