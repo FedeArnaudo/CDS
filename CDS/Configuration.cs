@@ -26,8 +26,9 @@ namespace CDS
                         {
                             RutaProyNuevo = reader.ReadLine().Trim(),                  //2do    Ruta
                             IP = reader.ReadLine().Trim(),                             //3ro    IP
-                            Protocolo = reader.ReadLine().Trim(),                      //4to    Protocolo
-                            Modo = reader.ReadLine().Trim()                            //5to    Modo
+                            TimeSleep = Convert.ToInt32(reader.ReadLine().Trim()),     //4to    Tiempo entre consultas
+                            Modo = reader.ReadLine().Trim(),                           //5to    Modo
+                            Protocolo = reader.ReadLine().Trim()                       //6to    Protocolo
                         };
                         break;
                     case "FUSION":
@@ -57,18 +58,20 @@ namespace CDS
                     outputFile.WriteLine(infoConfig.TipoDeControlador.Trim());              //1ro   Controlador
                     outputFile.WriteLine(infoConfig.RutaProyNuevo.Trim());                  //2do   Ruta
                     outputFile.WriteLine(infoConfig.IP.Trim());                             //3ro   IP
+                    outputFile.WriteLine(infoConfig.TimeSleep);                             //4to   Tiempo entre consultas
+                    outputFile.WriteLine(infoConfig.Modo);                                  //5to   Modo
                     switch (infoConfig.TipoDeControlador)
                     {
                         case "CEM-44":
                             InfoCEM infoCEM = (InfoCEM)infoConfig;
-                            outputFile.WriteLine(infoCEM.Protocolo.Trim());                 //4to   Protocolo
+                            outputFile.WriteLine(infoCEM.Protocolo.Trim());                 //6to   Protocolo
                             break;
                         case "FUSION":
                             break;
                         default:
                             break;
                     }
-                    outputFile.WriteLine(infoConfig.Modo);                                  //5to   Modo
+                    
                 }
             }
             catch (Exception e)
@@ -88,8 +91,9 @@ namespace CDS
     public class Info
     {
         protected string tipoDeControlador = "";
-        protected string rutaProyNuevo = "";
+        private string rutaProyNuevo = "";
         private string ip = "";
+        private int timeSleep = 0;
         protected MODO modo = MODO.NORMAL;
         public Info() { }
         public enum MODO
@@ -127,6 +131,17 @@ namespace CDS
                 if (ip != value)
                 {
                     ip = value;
+                }
+            }
+        }
+        public int TimeSleep
+        {
+            get => timeSleep;
+            set
+            {
+                if (timeSleep != value)
+                {
+                    timeSleep = value;
                 }
             }
         }

@@ -9,15 +9,9 @@ namespace CDS
 {
     internal class ControladorCEM : Controlador
     {
-        public static bool PedirCierreAnterior { get; set; }
-        public static bool PedirTurnoActual { get; set; }
-        public static bool PedirStockDeTanques { get; set; }
         public ControladorCEM()
         {
             Conector = new ConectorCEM();
-            PedirCierreAnterior = false;
-            PedirTurnoActual = false;
-            PedirStockDeTanques = false;
         }
 
         public override void GrabarSurtidores()

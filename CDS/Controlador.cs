@@ -13,7 +13,7 @@ namespace CDS
         // Instancia de Singleton
         private static Controlador instancia = null;
         // Hilo para manejar el proceso principal de consulta al controlador en paralelo al resto de la ejecución
-        private static Task procesoPrincipal = null;
+        private static readonly Task procesoPrincipal = null;
         // Tiempo de espera entre cada procesamiento en segundos.
         private static int loopDelaySeconds = 2;
         //
@@ -21,10 +21,9 @@ namespace CDS
 
         public static bool endWork = false;
 
-        public static bool pedirCierreAnterior = false;
-
         protected IConector conector;
 
+        private static bool pedirStockDeTanques = false;
         public Controlador() { }
         public IConector Conector
         {
@@ -104,10 +103,15 @@ namespace CDS
                         return false;
                 }
             }
-            else
+            else if (info == null)
             {
                 return false;
             }
+            else if (instancia != null)
+            {
+                loopDelaySeconds = info.TimeSleep;
+            }
+
             if (procesoPrincipal == null)
             {
                 _ = Task.Run(() => Run(cancellationTokenSource.Token));
@@ -135,24 +139,14 @@ namespace CDS
                         {
                             break;
                         }
-                        else if (ControladorCEM.PedirCierreAnterior)
-                        {
-                            instancia.GrabarCierreAnterior();
-                            ControladorCEM.PedirCierreAnterior = false;
-                        }
-                        else if (ControladorCEM.PedirTurnoActual)
-                        {
-                            instancia.GrabarTurnoEnCurso();
-                            ControladorCEM.PedirTurnoActual = false;
-                        }
-                        else if (ControladorCEM.PedirStockDeTanques)
+                        else if (pedirStockDeTanques)
                         {
                             instancia.GrabarTanques();
-                            ControladorCEM.PedirStockDeTanques = false;
+                            pedirStockDeTanques = false;
                         }
 
                         // Espera para procesar nuevamente
-                        Thread.Sleep(500);
+                        Thread.Sleep(loopDelaySeconds * 1000);
                     }
                     instancia.GrabarCierreActual();
                     // Espera para procesar nuevamente
@@ -165,14 +159,17 @@ namespace CDS
                 }
             }
         }
+
         public static void Stop()
         {
             cancellationTokenSource.Cancel();
         }
+
         public static void CheckConexion(int conexion)
         {
             _ = ConectorSQLite.Query($"UPDATE CheckConexion SET isConnected = {conexion}, fecha = datetime('now', 'localtime') WHERE idConexion = 1");
-            if (conexion == 0)// conexion == 0 => exitosa
+
+            if (conexion == 0)  // conexion == 0 => exitosa
             {
                 StatusForm.LabelState.Dispatcher.Invoke(() =>
                 {
@@ -180,7 +177,7 @@ namespace CDS
                     StatusForm.LabelState.Background = new SolidColorBrush(Colors.ForestGreen);
                 });
             }
-            else// conexion == 1 => fallida
+            else                // conexion == 1 => fallida
             {
                 StatusForm.LabelState.Dispatcher.Invoke(() =>
                 {
