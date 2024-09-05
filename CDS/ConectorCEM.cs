@@ -14,7 +14,7 @@ namespace CDS
     {
         private readonly byte separador = 0x7E;
         private readonly string nombreDelPipe = "CEM44POSPIPE";
-        private string ipControlador = ((InfoCEM)Configuration.LeerConfiguracion()).IP;
+        private string ipControlador = Configuration.LeerConfiguracion().IP;
         private string protocolo = ((InfoCEM)Configuration.LeerConfiguracion()).Protocolo;
         // Especifica la cultura que utiliza el punto como separador decimal
         private readonly CultureInfo culture = CultureInfo.InvariantCulture;
