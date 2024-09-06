@@ -19,27 +19,7 @@ namespace CDS.Views
 
         private void ComboBoxTipo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (FrameController != null)
-            {
-                ComboBoxItem selectedItem = (ComboBoxItem)ComboBoxTipo.SelectedItem;
 
-                if (selectedItem != null)
-                {
-                    switch (selectedItem.Content.ToString())
-                    {
-                        case "CEM-44":
-                            pageController = new SettingsCEM();
-                            _ = FrameController.Navigate(pageController);
-                            break;
-                        case "FUSION":
-                            pageController = new SettingsFusion();
-                            _ = FrameController.Navigate(pageController);
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            }
         }
 
         private void BtnConfig_Click(object sender, RoutedEventArgs e)
@@ -48,14 +28,6 @@ namespace CDS.Views
             Dictionary<string, string> parametros = null;
             if (ComboBoxTipo.Text != "")
             {
-                if (FrameController.Content is SettingsCEM CEM)
-                {
-                    parametros = CEM.GetConfiguration();
-                }
-                else if (FrameController.Content is SettingsFusion Fusion)
-                {
-                    parametros = Fusion.GetConfiguration();
-                }
 
                 if (CkeckParametros(parametros))
                 {
@@ -120,15 +92,12 @@ namespace CDS.Views
         }
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            // Combinación de teclas Ctrl + Shift + E
+            // Combinación de teclas Ctrl + E
             if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
             {
-                if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))
+                if (e.Key == Key.E)
                 {
-                    if (e.Key == Key.E)
-                    {
-                        ComboBoxMode.Visibility = Visibility.Visible;
-                    }
+                    ComboBoxMode.Visibility = Visibility.Visible;
                 }
             }
         }
